@@ -46,6 +46,7 @@ public abstract class Carte {
 
     }
 
+    //ma asigur oricum cand o caut daca e sau nu in sectiune
     public void setImprumutata(boolean borrowed) {
         imprumutata = borrowed;
     }

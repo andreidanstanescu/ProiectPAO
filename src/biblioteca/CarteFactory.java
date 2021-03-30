@@ -1,6 +1,7 @@
 package biblioteca;
 
 public class CarteFactory extends AbstractFactory{
+    //idk daca il mai folosesc
     private static int _id = 0;
 
     @Override

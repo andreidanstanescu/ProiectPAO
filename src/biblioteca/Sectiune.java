@@ -6,6 +6,7 @@ public class Sectiune implements Comparable<Sectiune>{
     private String nume;
     private TreeMap<Autor,TreeSet<String> > carti = new TreeMap<Autor,TreeSet<String> >();
     private HashMap<String,Integer> gen = new HashMap<String,Integer>();
+    //private HashSet<Carte> cc = new HashSet<Carte>();
 
     public void setNume(String nume){
         this.nume = nume;
@@ -15,6 +16,7 @@ public class Sectiune implements Comparable<Sectiune>{
         return nume;
     }
 
+    //cum le tin pe rafturi
     public TreeMap<Autor,TreeSet<String> > getCarti(){
         return carti;
     }
@@ -22,6 +24,7 @@ public class Sectiune implements Comparable<Sectiune>{
     public HashMap<String,Integer> getGen(){
         return gen;
     }
+
 
     public void sterge() {
         carti.clear();
