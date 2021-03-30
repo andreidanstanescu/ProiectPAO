@@ -5,7 +5,9 @@ public class Main {
         Serviciu test = new Serviciu();
         test.addSectiune("drama");
         test.addSectiune("slice of life");
-        test.golesteSectiune("slice of life");
-        System.out.println(test.s.size());
+        //test.stergeSectiune("slice of life");
+        test.addCarte("slice of life");
+        test.afiseazaSectiuni();
+        System.out.println(test.mostBooks());
     }
 }

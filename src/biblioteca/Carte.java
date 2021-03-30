@@ -7,8 +7,8 @@ public abstract class Carte {
     private int id;
     private String titlu;
     private Autor autor;
-    protected Sectiune sectiune;
-    private final ArrayList<Cititor> cititori;
+    protected String sectiune;
+    private ArrayList<Cititor> cititori;
     private boolean imprumutata;
 
     abstract String getType();
@@ -30,7 +30,7 @@ public abstract class Carte {
         this.titlu = t;
     }
 
-    public void setSectiune(Sectiune s) {
+    public void setSectiune(String s) {
         this.sectiune = s;
     }
 

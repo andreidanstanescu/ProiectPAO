@@ -4,12 +4,76 @@ import java.util.*;
 
 public class Serviciu {
     //de obicei dorim sectiunile din biblioteca sortate alfabetic
-    public TreeSet<Sectiune> s = new TreeSet<Sectiune>(new LexComp());
+    private TreeSet<Sectiune> s = new TreeSet<Sectiune>(new LexComp());
 
     public void addSectiune(String nume){
         Sectiune aux = new Sectiune();
         aux.setNume(nume);
         s.add(aux);
+    }
+
+    public void redenumesteSectiune(String nume, String alt_nume){
+        try{
+            searchSectiune(nume).setNume(alt_nume);
+        }
+        catch(MyException e){
+            addSectiune(alt_nume);
+        }
+    }
+
+    //adaug o carte noua intr-o anumita sectiune, al carei nume este dat ca parametru
+    public void addCarte(String nume) throws MyException {
+        CarteFactory demo = new CarteFactory();
+        Scanner fin = new Scanner(System.in);
+        System.out.println("Introdu tipul cartii: ");
+        String str = fin.nextLine();
+        Carte carte = demo.getCarte(str);
+
+        System.out.println("Introdu titlul cartii: ");
+        str = fin.nextLine();
+        carte.setTitlu(str);
+
+        System.out.println("Introdu numele autorului: ");
+        str = fin.nextLine();
+        System.out.println("Introdu prenumele autorului: ");
+        String str1 = fin.nextLine();
+        Autor a = new Autor(str,str1);
+        carte.setAutor(a);
+
+        carte.setSectiune(nume);
+
+        searchSectiune(nume).add(carte);
+        System.out.println("Carte adaugata cu succes");
+    }
+
+    public void addCarte(String nume, Carte c) throws MyException {
+        searchSectiune(nume).add(c);
+    }
+
+    //sectiunea cu cele mai multe carti
+    public String mostBooks(){
+        Sectiune ans = s.stream().max(Comparator.comparing(i -> i.getTotalCarti())).get();
+        return ans.getNume();
+    }
+
+    public Integer totalCarti(){
+        Integer sum = 0;
+        for(Sectiune i: s)
+            sum += i.getTotalCarti();
+        return sum;
+    }
+
+    //sectiunea cu cele mai multi cititori
+    public String coolest(){
+        int aux = -1;
+        String ans = "";
+        for(Sectiune i: s){
+            if(aux < i.getTotalCititori()){
+                ans = i.getNume();
+                aux = i.getTotalCititori();
+            }
+        }
+        return ans;
     }
 
     public Sectiune searchSectiune(String nume) throws MyException{
@@ -21,13 +85,31 @@ public class Serviciu {
         throw new MyException("nu exista sectiunea");
     }
 
+    public boolean contineCarte(Carte c){
+        try{
+            Sectiune caut = searchSectiune(c.sectiune);
+            return caut.contineCarte(c);
+        }
+        catch(MyException e){
+            return false;
+        }
+    }
+
     public void golesteSectiune(String nume) throws MyException{
-        //searchSectiune(nume).sterge();
+        searchSectiune(nume).sterge();
+    }
+
+    public void stergeSectiune(String nume) throws MyException{
         s.remove(searchSectiune(nume));
     }
 
+    public void afiseazaSectiuni(){
+        //sunt deja sortate dupa nume
+        for(Sectiune i: s)
+            System.out.println(i.getNume());
+    }
 
-
+    //total: 12 operatii
 
 }
 

@@ -3,6 +3,10 @@ package biblioteca;
 public final class Autor implements Comparable<Autor>{
     private String nume,prenume;
 
+    public Autor(){
+
+    }
+
     public Autor(String nume, String prenume){
         this.nume = nume;
         this.prenume = prenume;

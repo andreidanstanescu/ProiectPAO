@@ -7,6 +7,7 @@ public class Sectiune implements Comparable<Sectiune>{
     private TreeMap<Autor,TreeSet<String> > carti = new TreeMap<Autor,TreeSet<String> >();
     private HashMap<String,Integer> gen = new HashMap<String,Integer>();
     //private HashSet<Carte> cc = new HashSet<Carte>();
+    private HashSet<Cititor> popularitate= new HashSet<Cititor>();
 
     public void setNume(String nume){
         this.nume = nume;
@@ -29,6 +30,7 @@ public class Sectiune implements Comparable<Sectiune>{
     public void sterge() {
         carti.clear();
         gen.clear();
+        //cc.clear();
     }
 
     public void add(Carte nou) {
@@ -46,11 +48,31 @@ public class Sectiune implements Comparable<Sectiune>{
             freq = gen.get(nou.getType());
         gen.put(nou.getType(), freq + 1);
 
+        //cc.add(nou);
     }
 
     public void remove(Carte sters) {
         carti.get(sters.getAutor()).remove(sters.getTitlu());
         gen.put(sters.getType(), gen.get(sters.getType()) - 1);
+        //cc.remove(sters);
+    }
+
+    public void imprumuta(Carte c, Cititor p){
+        if(!c.getImprumutata() && contineCarte(c) ) {
+            c.setImprumutata(true);
+            popularitate.add(p);
+            c.getCititori().add(p);
+        }
+        else
+            System.out.println("Cartea este deja imprumutata de catre altcineva!");
+    }
+
+    public void aduceInapoi(Carte c){
+        c.setImprumutata(false);
+    }
+
+    public int getTotalCititori(){
+        return popularitate.size();
     }
 
     public Integer getTotalCarti() {
@@ -58,6 +80,22 @@ public class Sectiune implements Comparable<Sectiune>{
         for(Autor a: carti.keySet())
             sum += carti.get(a).size();
         return sum;
+    }
+
+    public boolean contineAutor(Autor waldo) {
+        return carti.containsKey(waldo);
+    }
+
+    public String mostAutor(){
+        Integer count = -1;
+        Autor popular = new Autor();
+        for(Autor a: carti.keySet()) {
+            if(count < carti.get(a).size()){
+                count = carti.get(a).size();
+                popular = a;
+            }
+        }
+        return popular.toString();
     }
 
     public boolean contineCarte(Carte waldo) {
