@@ -6,4 +6,9 @@ public class Manga extends Carte{
         return "Manga";
     }
 
+    @Override
+    int getValoare(){
+        return 100;
+    }
+
 }

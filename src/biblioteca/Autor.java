@@ -21,6 +21,16 @@ public final class Autor implements Comparable<Autor>{
     }
 
     @Override
+    public boolean equals(Object other1){
+        if (other1.getClass() != this.getClass()) {
+            return false;
+        }
+        final Autor other = (Autor)other1;
+        return this.nume.equals(other.nume) && this.prenume.equals(other.prenume) ;
+        //return true;
+    }
+
+    @Override
     public int compareTo(Autor other){
         if(this.nume.equals(other.nume))
             return this.prenume.compareTo(other.prenume);

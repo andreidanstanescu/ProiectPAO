@@ -17,6 +17,8 @@ public abstract class Carte {
         cititori = new ArrayList<Cititor>();
         imprumutata = false;
     }
+    
+    abstract int getValoare();
 
     public void setId(int id) {
         this.id = id;
@@ -36,8 +38,10 @@ public abstract class Carte {
 
     public void addCititor(Cititor c) {
         try{
-            if(!imprumutata)
+            if(!imprumutata) {
                 this.cititori.add(c);
+                c.addCarte(this);
+            }
             else throw new MyException("Este deja imprumutata !");
         }
         catch (MyException e){
@@ -75,6 +79,23 @@ public abstract class Carte {
                 return c1.getNume().compareTo(c2.getNume());
             }
         });
+    }
+
+    @Override
+    public boolean equals(Object other1){
+        if (other1.getClass() != this.getClass()) {
+            return false;
+        }
+        final Carte other = (Carte)other1;
+        /*System.out.println(this.titlu);
+        System.out.println(this.autor);
+        System.out.println(this.sectiune);
+        System.out.println(other.titlu);
+        System.out.println(other.autor);
+        System.out.println(other.sectiune);
+         */
+        return (this.titlu.equals(other.titlu) && this.autor.equals(other.autor) && this.sectiune.equals(other.sectiune));
+        //return true;
     }
 
     @Override

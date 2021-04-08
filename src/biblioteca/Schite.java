@@ -5,4 +5,9 @@ public class Schite extends Carte{
     public String getType(){
         return "Schite";
     }
+
+    @Override
+    int getValoare() {
+        return 50;
+    }
 }

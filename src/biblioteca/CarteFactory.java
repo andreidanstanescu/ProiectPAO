@@ -21,7 +21,7 @@ public class CarteFactory extends AbstractFactory{
             return new Enciclopedie();
         }
 
-        System.out.println("What are you doing, stepIS ?!");
+        System.out.println("Optiune invalida !");
 
         return null;
     }

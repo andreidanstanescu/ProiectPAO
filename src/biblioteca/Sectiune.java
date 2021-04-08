@@ -2,12 +2,18 @@ package biblioteca;
 
 import java.util.*;
 
+import static java.lang.Math.max;
+
 public class Sectiune implements Comparable<Sectiune>{
     private String nume;
     private TreeMap<Autor,TreeSet<String> > carti = new TreeMap<Autor,TreeSet<String> >();
     private HashMap<String,Integer> gen = new HashMap<String,Integer>();
-    //private HashSet<Carte> cc = new HashSet<Carte>();
+    private HashSet<Carte> cc = new HashSet<Carte>();
     private HashSet<Cititor> popularitate= new HashSet<Cititor>();
+
+    public HashSet<Carte> getTotCarti(){
+        return cc;
+    }
 
     public void setNume(String nume){
         this.nume = nume;
@@ -26,11 +32,14 @@ public class Sectiune implements Comparable<Sectiune>{
         return gen;
     }
 
+    public HashSet<Cititor> getPopularitate(){
+        return popularitate;
+    }
 
     public void sterge() {
         carti.clear();
         gen.clear();
-        //cc.clear();
+        cc.clear();
     }
 
     public void add(Carte nou) {
@@ -48,27 +57,35 @@ public class Sectiune implements Comparable<Sectiune>{
             freq = gen.get(nou.getType());
         gen.put(nou.getType(), freq + 1);
 
-        //cc.add(nou);
+        //System.out.println(nou);
+        cc.add(nou);
     }
 
     public void remove(Carte sters) {
         carti.get(sters.getAutor()).remove(sters.getTitlu());
         gen.put(sters.getType(), gen.get(sters.getType()) - 1);
-        //cc.remove(sters);
+        cc.remove(sters);
     }
 
     public void imprumuta(Carte c, Cititor p){
-        if(!c.getImprumutata() && contineCarte(c) ) {
-            c.setImprumutata(true);
+        System.out.println("Contine cartea: " + contineCarte(c));
+        Carte asta = new Manga();
+        for(Carte c1: cc)
+            if(c1.equals(c))
+                asta = c1;
+        if(!asta.getImprumutata() && contineCarte(c) ) {
+            asta.setImprumutata(true);
             popularitate.add(p);
-            c.getCititori().add(p);
+            asta.getCititori().add(p);
         }
         else
             System.out.println("Cartea este deja imprumutata de catre altcineva!");
     }
 
     public void aduceInapoi(Carte c){
-        c.setImprumutata(false);
+        for(Carte c1: cc)
+            if(c1.equals(c))
+                c1.setImprumutata(false);
     }
 
     public int getTotalCititori(){
@@ -105,6 +122,16 @@ public class Sectiune implements Comparable<Sectiune>{
             return carti.get(waldo.getAutor()).contains(waldo.getTitlu());
         //worst case O(log^2(n))
     }
+
+    public String topType(){
+        String ans ="Sectiune goala !";
+        int count = -1;
+        for(String tip: gen.keySet())
+            if(count < gen.get(tip))
+                ans = tip;
+        return ans;
+    }
+
 
     @Override
     public int compareTo(Sectiune other){

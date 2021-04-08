@@ -5,4 +5,9 @@ public class Enciclopedie extends Carte{
     public String getType(){
         return "Enciclopedie";
     }
+
+    @Override
+    int getValoare(){
+        return 150;
+    }
 }
