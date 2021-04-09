@@ -164,7 +164,7 @@ public class Serviciu {
                     System.out.println("Cartea este deja imprumutata de catre altcineva!");
             }
         if(!flag)
-            System.out.println("Cartea este deja imprumutata de catre altcineva!");
+            System.out.println("Nu avem cartea!");
     }
 
     public synchronized void aduceInapoi(String nume, Carte c) throws MyException {
