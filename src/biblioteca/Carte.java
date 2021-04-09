@@ -115,7 +115,7 @@ public abstract class Carte {
 
     @Override
     public String toString() {
-        return String.format("titlu: " + titlu + "autor: " + autor.toString());
+        return String.format("titlu: " + titlu + " autor: " + autor.toString());
     }
 
 }
