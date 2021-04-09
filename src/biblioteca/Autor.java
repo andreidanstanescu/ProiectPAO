@@ -1,23 +1,13 @@
 package biblioteca;
 
-public final class Autor implements Comparable<Autor>{
-    private String nume,prenume;
+public final class Autor extends Person implements Comparable<Autor> {
 
     public Autor(){
-
+        super();
     }
 
     public Autor(String nume, String prenume){
-        this.nume = nume;
-        this.prenume = prenume;
-    }
-
-    public String getNume() {
-        return this.nume;
-    }
-
-    public String getPrenume() {
-        return this.prenume;
+        super(nume, prenume);
     }
 
     @Override
@@ -26,15 +16,20 @@ public final class Autor implements Comparable<Autor>{
             return false;
         }
         final Autor other = (Autor)other1;
-        return this.nume.equals(other.nume) && this.prenume.equals(other.prenume) ;
+        return this.getNume().equals(other.getNume()) && this.getPrenume().equals(other.getPrenume()) ;
         //return true;
     }
 
     @Override
     public int compareTo(Autor other){
-        if(this.nume.equals(other.nume))
-            return this.prenume.compareTo(other.prenume);
+        if(this.getNume().equals(other.getNume()))
+            return this.getPrenume().compareTo(other.getPrenume());
         else
-            return this.nume.compareTo(other.nume);
+            return this.getNume().compareTo(other.getNume());
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

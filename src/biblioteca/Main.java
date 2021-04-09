@@ -108,6 +108,16 @@ public class Main {
 
                     test.imprumuta(str, carte, p);
                 }
+                case "afiseaza carti" -> {
+                    System.out.println("Introdu numele sectiunii: ");
+                    String nume = fin.nextLine().toLowerCase(Locale.ROOT);
+                    test.afisareCarti(nume);
+                }
+                case "afiseaza cititori" -> {
+                    System.out.println("Introdu numele sectiunii: ");
+                    String nume = fin.nextLine().toLowerCase(Locale.ROOT);
+                    test.afisareCititori(nume);
+                }
                 case "afiseaza" -> {
                     test.afiseazaSectiuni();
                 }

@@ -4,21 +4,36 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public abstract class Carte {
-    private int id;
+    private static long id;
     private String titlu;
     private Autor autor;
     protected String sectiune;
     private ArrayList<Cititor> cititori;
     private boolean imprumutata;
+    private boolean restricted = false;
 
     abstract String getType();
 
     Carte() {
         cititori = new ArrayList<Cititor>();
         imprumutata = false;
+        this.id = generateID();
     }
     
     abstract int getValoare();
+
+    public static synchronized long generateID()
+    {
+        return (id++);
+    }
+
+    public void setRestrictie(){
+        restricted = true;
+    }
+
+    public boolean getRestricted(){
+        return restricted;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -100,7 +115,7 @@ public abstract class Carte {
 
     @Override
     public String toString() {
-        return String.format("titlu: " + titlu + "autor: " + autor);
+        return String.format("titlu: " + titlu + "autor: " + autor.toString());
     }
 
 }

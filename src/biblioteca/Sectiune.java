@@ -67,22 +67,22 @@ public class Sectiune implements Comparable<Sectiune>{
         cc.remove(sters);
     }
 
-    public void imprumuta(Carte c, Cititor p){
+    //thread-safe
+    public synchronized void imprumuta(Carte c, Cititor p){
         System.out.println("Contine cartea: " + contineCarte(c));
-        Carte asta = new Manga();
         for(Carte c1: cc)
-            if(c1.equals(c))
-                asta = c1;
-        if(!asta.getImprumutata() && contineCarte(c) ) {
-            asta.setImprumutata(true);
-            popularitate.add(p);
-            asta.getCititori().add(p);
-        }
-        else
-            System.out.println("Cartea este deja imprumutata de catre altcineva!");
+            if(c1.equals(c)) {
+                if (!c1.getImprumutata() && contineCarte(c)) {
+                    c1.setImprumutata(true);
+                    popularitate.add(p);
+                    c1.getCititori().add(p);
+                } else
+                    System.out.println("Cartea este deja imprumutata de catre altcineva!");
+            }
     }
 
-    public void aduceInapoi(Carte c){
+    //thread-safe
+    public synchronized void aduceInapoi(Carte c){
         for(Carte c1: cc)
             if(c1.equals(c))
                 c1.setImprumutata(false);

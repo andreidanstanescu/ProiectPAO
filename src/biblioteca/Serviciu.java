@@ -140,14 +140,18 @@ public class Serviciu {
         return searchSectiune(nume).topType();
     }
 
-    public void imprumuta(String nume, Carte c, Cititor p) throws MyException {
+    public synchronized void imprumuta(String nume, Carte c, Cititor p) throws MyException {
         Sectiune aux = searchSectiune(nume);
+
         /*Carte asta = new Manga();
         for(Carte c1: aux.getTotCarti()) {
             System.out.println(c1.equals(c));
         }*/
+
+        boolean flag = false;
         for(Carte c1: aux.getTotCarti())
             if(c1.equals(c)) {
+                flag = true;
                 //System.out.println(c1);
                 //System.out.println(aux.contineCarte(c));
                 if(!c1.getImprumutata() && aux.contineCarte(c) ) {
@@ -159,17 +163,30 @@ public class Serviciu {
                 else
                     System.out.println("Cartea este deja imprumutata de catre altcineva!");
             }
-
+        if(!flag)
+            System.out.println("Cartea este deja imprumutata de catre altcineva!");
     }
 
-    public void aduceInapoi(String nume, Carte c) throws MyException {
+    public synchronized void aduceInapoi(String nume, Carte c) throws MyException {
         Sectiune aux = searchSectiune(nume);
         for(Carte c1: aux.getTotCarti())
             if(c1.equals(c))
                 c1.setImprumutata(false);
     }
 
-    //total: 15 operatii
+    public void afisareCarti(String nume) throws MyException {
+        Sectiune aux = searchSectiune(nume);
+        for(Carte c1: aux.getTotCarti())
+            System.out.println(c1.toString());
+    }
+
+    public void afisareCititori(String nume) throws MyException {
+        Sectiune aux = searchSectiune(nume);
+        for(Cititor c: aux.getPopularitate())
+            System.out.println(c.toString());
+    }
+
+    //total: 17 operatii
 
 }
 

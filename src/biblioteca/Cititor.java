@@ -2,10 +2,9 @@ package biblioteca;
 
 import java.util.*;
 
-public class Cititor {
+public class Cititor extends Person{
     private static long idCounter = 0;
     private long id;
-    private String nume,prenume;
     private int varsta;
     private int an_inscriere;
     //tip abonament: normal sau pro
@@ -13,8 +12,7 @@ public class Cititor {
     private HashSet<Carte> citite = new HashSet<>();
 
     Cititor(String nume, String prenume, int varsta){
-        this.nume = nume;
-        this.prenume = prenume;
+        super(nume, prenume);
         this.id = generateID();
         this.abonament = "normal";
         this.varsta = varsta;
@@ -29,16 +27,8 @@ public class Cititor {
         return (idCounter++);
     }
 
-    public String getNume() {
-        return this.nume;
-    }
-
     public int getVarsta(){
         return this.varsta;
-    }
-
-    public String getPrenume(){
-        return this.prenume;
     }
 
     public boolean isPro(){
@@ -60,8 +50,8 @@ public class Cititor {
     @Override
     public String toString() {
         return "Cititor{" +
-                "nume='" + nume + '\'' +
-                ", prenume='" + prenume + '\'' +
+                "nume='" + getNume()+ '\'' +
+                ", prenume='" + getPrenume() + '\'' +
                 ", tip abomanet='" + abonament + '\'' +
                 ", " + Arrays.toString(citite.toArray()) +
                 '}';
