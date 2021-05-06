@@ -16,7 +16,7 @@ public class Serviciu {
 
     public void redenumesteSectiune(String nume, String alt_nume){
         try{
-            searchSectiune(nume).setNume(alt_nume);
+            cautaSectiune(nume).setNume(alt_nume);
         }
         catch(MyException e){
             addSectiune(alt_nume);
@@ -44,12 +44,12 @@ public class Serviciu {
 
         carte.setSectiune(nume);
 
-        searchSectiune(nume).add(carte);
+        cautaSectiune(nume).add(carte);
         System.out.println("Carte adaugata cu succes");
     }
 
     public void addCarte(String nume, Carte c) throws MyException {
-        searchSectiune(nume).add(c);
+        cautaSectiune(nume).add(c);
     }
 
     //sectiunea cu cele mai multe carti
@@ -78,7 +78,7 @@ public class Serviciu {
         return ans;
     }
 
-    public Sectiune searchSectiune(String nume) throws MyException{
+    public Sectiune cautaSectiune(String nume) throws MyException{
         Sectiune lower_bound = new Sectiune();
         lower_bound.setNume(nume);
         Sectiune ceil = s.ceiling(lower_bound);
@@ -104,7 +104,7 @@ public class Serviciu {
 
     public boolean contineCarte(Carte c){
         try{
-            Sectiune caut = searchSectiune(c.sectiune);
+            Sectiune caut = cautaSectiune(c.sectiune);
             return caut.contineCarte(c);
         }
         catch(MyException e){
@@ -113,11 +113,11 @@ public class Serviciu {
     }
 
     public void golesteSectiune(String nume) throws MyException{
-        searchSectiune(nume).sterge();
+        cautaSectiune(nume).sterge();
     }
 
     public void stergeSectiune(String nume) throws MyException{
-        s.remove(searchSectiune(nume));
+        s.remove(cautaSectiune(nume));
     }
 
     public void afiseazaSectiuni(){
@@ -129,19 +129,19 @@ public class Serviciu {
     //media varstei de pe un anumit raft
     public float medie(String nume) throws MyException {
         float ans = 0;
-        for(Cititor cc: searchSectiune(nume).getPopularitate())
+        for(Cititor cc: cautaSectiune(nume).getPopularitate())
             ans += cc.getVarsta();
-        return ans/searchSectiune(nume).getPopularitate().size();
+        return ans/cautaSectiune(nume).getPopularitate().size();
     }
 
     //cel mai comun tip de carte dintr-o sectiune
     //cu nume dat ca parametru
     public String topType(String nume) throws MyException {
-        return searchSectiune(nume).topType();
+        return cautaSectiune(nume).topType();
     }
 
     public synchronized void imprumuta(String nume, Carte c, Cititor p) throws MyException {
-        Sectiune aux = searchSectiune(nume);
+        Sectiune aux = cautaSectiune(nume);
 
         /*Carte asta = new Manga();
         for(Carte c1: aux.getTotCarti()) {
@@ -168,20 +168,20 @@ public class Serviciu {
     }
 
     public synchronized void aduceInapoi(String nume, Carte c) throws MyException {
-        Sectiune aux = searchSectiune(nume);
+        Sectiune aux = cautaSectiune(nume);
         for(Carte c1: aux.getTotCarti())
             if(c1.equals(c))
                 c1.setImprumutata(false);
     }
 
     public void afisareCarti(String nume) throws MyException {
-        Sectiune aux = searchSectiune(nume);
+        Sectiune aux = cautaSectiune(nume);
         for(Carte c1: aux.getTotCarti())
             System.out.println(c1.toString());
     }
 
     public void afisareCititori(String nume) throws MyException {
-        Sectiune aux = searchSectiune(nume);
+        Sectiune aux = cautaSectiune(nume);
         for(Cititor c: aux.getPopularitate())
             System.out.println(c.toString());
     }

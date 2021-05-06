@@ -74,6 +74,10 @@ public abstract class Carte {
         return autor;
     }
 
+    public String getSectiune() {
+        return sectiune;
+    }
+
     public String getTitlu() {
         return titlu;
     }

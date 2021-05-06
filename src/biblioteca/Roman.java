@@ -1,25 +1,33 @@
 package biblioteca;
 
 public class Roman extends Carte{
-    private int nr_pagini;
-    private boolean has_adaptation;
+    private int nrPagini;
+    private boolean adaptare;
 
     Roman(){
         super();
-        nr_pagini = 100;
-        has_adaptation = false;
+        nrPagini = 100;
+        adaptare = false;
     }
 
-    public void setHas_adaptation(){
-        has_adaptation = true;
+    public void setAdaptare(){
+        adaptare = true;
+        /*CSV csv = CSV.getInstanta();
+        try {
+            CSV.scrieRoman(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
-    public void setNr_pagini(int n){
-        nr_pagini = n;
+    public boolean getAdaptare() { return adaptare; }
+
+    public void setNrPagini(int n){
+        nrPagini = n;
     }
 
-    public int getNr_pagini(){
-        return nr_pagini;
+    public int getNrPagini(){
+        return nrPagini;
     }
 
     @Override

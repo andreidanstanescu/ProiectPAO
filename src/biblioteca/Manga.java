@@ -3,22 +3,26 @@ package biblioteca;
 public class Manga extends Carte{
     private final String status;
     private Autor artist;
-    private boolean has_anime;
+    private boolean areAnime;
 
     Manga(){
         super();
         status = "weeb";
         artist = new Autor();
-        has_anime = false;
+        areAnime = false;
     }
 
     public Autor getArtist(){
         return artist;
     }
 
-    public void setHas_anime(){
-        has_anime = true;
+    public void setareAnime(){
+        CSV csv = CSV.getInstanta();
+        CSV.scrieManga(this);
+        areAnime = true;
     }
+
+    public boolean getareAnime() { return areAnime; }
 
     public void setArtist(Autor a){
         artist = a;
