@@ -42,7 +42,7 @@ public class Roman extends Carte{
 
     @Override
     public String toString() {
-        return super.toString() + getType();
+        return super.toString() + " " + getType();
     }
 
 }

@@ -1,10 +1,12 @@
 package biblioteca;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class Serviciu {
     //de obicei dorim sectiunile din biblioteca sortate alfabetic
     private TreeSet<Sectiune> s = new TreeSet<Sectiune>(new LexComp());
+    MySQL db = MySQL.getInstanta();
 
     public void addSectiune(String nume){
         if(existaSectiune(nume))
@@ -44,6 +46,13 @@ public class Serviciu {
 
         carte.setSectiune(nume);
 
+        if(carte.getType() == "Roman") {
+            try {
+                db.addRoman(carte);
+            } catch (SQLException e){
+                System.out.println("exista deja cartea");
+            }
+        }
         cautaSectiune(nume).add(carte);
         System.out.println("Carte adaugata cu succes");
     }

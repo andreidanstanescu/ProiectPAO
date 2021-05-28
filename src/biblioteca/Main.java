@@ -13,17 +13,25 @@ public class Main {
 
         //citesc datele din fisierele csv si le adaug in clasa serviciu(care gestioneaza direct toata biblioteca)
 
+        /*
         ArrayList<Cititor> cititori = CSV.citireCititor();
         ArrayList<Autor> autori = CSV.citireAutor();
+         */
+        MySQL db = MySQL.getInstanta();
+        ArrayList<Cititor> cititori = db.citireCititori();
+        ArrayList<Autor> autori = db.citireAutori();
 
-        ArrayList<Carte> romane = CSV.citireRoman();
+
+        //ArrayList<Carte> romane = CSV.citireRoman();
+        ArrayList<Carte> romane = db.citireRoman();
         for(Carte c: romane){
             c.addCititor(cititori.get(0));
             test.addSectiune(c.sectiune);
             test.addCarte(c.sectiune, c);
         }
 
-        ArrayList<Carte> manga = CSV.citireManga();
+        //ArrayList<Carte> manga = CSV.citireManga();
+        ArrayList<Carte> manga = db.citireManga();
         for(Carte c: manga) {
             c.addCititor(cititori.get(1));
             test.addSectiune(c.sectiune);
@@ -31,7 +39,7 @@ public class Main {
         }
 
         Cititor c1 = cititori.get(0);
-        Carte rp = romane.get(0);
+        Carte rp = romane.get(1);
         //System.out.println(rp);
         test.imprumuta("drama", rp, c1);
         //il afiseaza pe c1 si cartile citite
@@ -46,10 +54,11 @@ public class Main {
         r.setTitlu("IT");
         r.setSectiune("horror");
         Autor a2 = new Autor("King","Stephen");
-        CSV.scrieAutor(a2);
+        //CSV.scrieAutor(a2);
         r.setAutor(a2);
-        CSV.scrieRoman(r);
+        //CSV.scrieRoman(r);
         //object slicing(in caz ca o apelez)
+        db.addRoman(r);
         Carte c2 = r;
 
         //un test de mana
@@ -66,8 +75,9 @@ public class Main {
 
         Cititor p1 = new Cititor("Azusagawa","Sakuta",18);
         test.imprumuta("drama",c,p1);
-        //test.aduceInapoi("comedie",c);
+        //test.aduceInapoi("drama",c);
         Cititor p2 = new Cititor("Azusagawa","Kaede",11);
+        db.addCititor(p2);
         test.imprumuta("drama",c,p2);
         test.afiseazaSectiuni();
         System.out.println(test.mostBooks());
